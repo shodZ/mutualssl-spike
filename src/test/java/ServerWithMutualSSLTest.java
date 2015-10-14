@@ -1,5 +1,6 @@
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -48,13 +49,13 @@ public class ServerWithMutualSSLTest {
     }
 
     private SSLConnectionSocketFactory customSSLContextFactory() throws NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, KeyManagementException, UnrecoverableKeyException {
-        return new SSLConnectionSocketFactory(customSSLContext(), NoopHostnameVerifier.INSTANCE);
+        return new SSLConnectionSocketFactory(customSSLContext(), new DefaultHostnameVerifier());
     }
 
     private SSLContext customSSLContext() throws NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, KeyManagementException, UnrecoverableKeyException {
         SSLContextBuilder sslContextBuilder = SSLContexts.custom();
-        sslContextBuilder.loadTrustMaterial(new File("/Users/ssheth/p/mutualssl-spike/src/test/resources/keystore.jks"), "password".toCharArray());
-        sslContextBuilder.loadKeyMaterial(new File("/Users/ssheth/p/mutualssl-spike/src/test/resources/keystore.jks"), "password".toCharArray(), "password".toCharArray());
+        sslContextBuilder.loadTrustMaterial(new File("src/test/resources/trusted-stuff.jks"));
+        sslContextBuilder.loadKeyMaterial(new File("src/test/resources/client-private-key.jks"), "clientprivatestore".toCharArray(), "clientprivate".toCharArray());
         return sslContextBuilder.build();
     }
 

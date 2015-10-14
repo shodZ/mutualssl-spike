@@ -6,7 +6,7 @@ app/bower_components
 .grunt
 _SpecRunner.html
 .idea
-*.iml
+*.i*
 app/scripts/templates/templates.js
 .DS_Store
 prototypenpm-debug.log

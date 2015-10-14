@@ -3,7 +3,8 @@ server:
   connector:
     type: https
     port: 8080
-    keyStorePath: /Users/ssheth/p/mutualssl-spike/src/test/resources/keystore.jks
-    keyStorePassword: password
-    trustStorePath: /Library/Java/Home/lib/security/cacerts
+    keyStorePath: src/test/resources/server-private-key.jks
+    keyStorePassword: serverprivatestore
+    trustStorePath: src/test/resources/trusted-stuff.jks
     needClientAuth: true
+    keyManagerPassword: serverprivatekey
